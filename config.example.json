@@ -1,0 +1,20 @@
+{
+  "_comment": "이 파일을 config.json으로 복사해 사용하세요. 다른 경로를 쓰려면 ARTEX_CONFIG 환경 변수를 지정하세요. 여기서는 데이터베이스와 스킬 디렉터리만 설정합니다. LLM은 환경 변수나 앱의 설정 화면에서 구성합니다.",
+  "_comment_database": "PostgreSQL 연결 정보입니다. ARTEX_PG_DSN 환경 변수가 있으면 이 설정보다 우선합니다. 아래 필드를 채우거나 database.dsn에 연결 문자열을 입력하세요.",
+  "database": {
+    "host": "127.0.0.1",
+    "port": 5433,
+    "user": "artex",
+    "password": "",
+    "dbname": "artex",
+    "sslmode": "disable"
+  },
+  "_comment_database_dsn": "database.dsn에 연결 문자열을 입력하면 host, port 등의 개별 필드는 무시됩니다.",
+  "_example_database_dsn": {
+    "database": {
+      "dsn": "postgres://user:pass@db.example.com:5432/artex?sslmode=require"
+    }
+  },
+  "_comment_skill_dir": "스킬 디렉터리입니다. 비워 두면 실행 파일 옆의 skills/를 사용합니다. ARTEX_SKILL_DIR 환경 변수가 있으면 이 설정보다 우선하며, 상대 경로는 현재 작업 디렉터리를 기준으로 해석합니다.",
+  "skill_dir": ""
+}

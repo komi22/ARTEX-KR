@@ -1,0 +1,63 @@
+# backend
+/data/
+*.db
+*.db-wal
+*.db-shm
+config.json
+scheduler_state.json
+__pycache__/
+*.pyc
+*.pyo
+
+# frontend
+web/node_modules/
+web/.next/
+web/tsconfig.tsbuildinfo
+web/next-env.d.ts
+*.local
+
+# development tools
+.playwright-mcp/
+.playwright-cli/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# docs
+/docs/
+!/docs/
+/docs/*
+!/docs/취약점-트래픽-증거.md
+
+# os
+.DS_Store
+Thumbs.db
+
+# claude code local state
+.claude/
+
+# 프런트엔드가 내장된 단일 바이너리 제품
+/artex
+# 실행 파일 옆에 생성되는 업데이트 임시 파일과 백업
+/artex.new
+/artex.new.sha256
+/artex.old
+/artex.failed
+/artex.upgrade.json
+/server/webui/dist/
+/dist/
+
+# JWT 서명 키(런타임에 생성되고 프로젝트 루트에 저장되며 제출되지 않음)
+/jwt.key
+
+# Docker 생성된 로컬 환경 배포(비밀번호 포함)/키, 제출되지 않음)
+.env
+
+# 스케줄러 실행/시뮬레이션으로 생성된 이벤트 로그(테스트 제품, 제출되지 않음)
+*-events.csv
+
+# 로컬 벤치마크 파일
+/bench/
+/Dockerfile.bench
+/Dockerfile.bench.v2

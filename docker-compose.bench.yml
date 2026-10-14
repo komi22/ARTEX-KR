@@ -1,0 +1,27 @@
+# ARTEX Tencent TSec 벤치마크 평가 이미지 - 로컬 원클릭 빌드 + 실행.
+# 프로덕션용 Docker-compose.yml(멀티 서비스: artex+postgres)은 서로 영향을 미치지 않습니다.
+# 사용법:
+#   cp bench/.env.example bench/.env # LLM_API_KEY / BENCHMARK_TOKEN 등을 입력합니다.
+#   docker compose -f docker-compose.bench.yml up --build # 포그라운드에서 빌드 및 실행(로그 참조)
+#   docker compose -f docker-compose.bench.yml up --build -d # 백엔드
+#   docker compose -f docker-compose.bench.yml logs -f
+#   docker compose -f docker-compose.bench.yml down # 중지(데이터 볼륨을 함께 삭제하려면 -v 추가)
+# 브라우저: http://localhost:8787 (ADMIN_PASSWORD로 로그인)
+
+services:
+  artex-bench:
+    build:
+      context: .
+      dockerfile: Dockerfile.bench
+    image: artex-bench:latest
+    container_name: artex-bench
+    env_file:
+      - bench/.env
+    # 물리적 시스템과 네트워크 공유: 컨테이너는 호스트 네트워크 스택을 직접 사용하고 호스트/VPN의 대상 네트워크에 직접 연결할 수 있습니다.
+    # 호스트 모드에서는 포트 매핑이 필요하지 않습니다. 컨테이너는 호스트 포트(8787(UI/API), 8788(에이전트))에 직접 연결됩니다.
+    # 그리고 내부 PostgreSQL 5432 - 호스트의 이 세 포트가 사용 가능한지 확인하세요(로컬에서 테스트하기 전에 해당 포트를 점유하는 서비스를 중지하세요).
+    network_mode: host
+    restart: "no"
+
+volumes:
+  artex_bench_data:

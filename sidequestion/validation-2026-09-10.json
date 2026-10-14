@@ -1,0 +1,297 @@
+{
+  "date": "2026-09-10",
+  "branch": "codex/btw-side-question",
+  "notes": [
+    "Independent test database and profiles; product default unchanged.",
+    "Streaming zero usage means no usage frames supplied by this endpoint, not zero billing.",
+    "Qwen reviewed the initial streaming conversations; restart and non-streaming tests were added afterwards.",
+    "The main curl command saved a local response file. No side question executed a tool."
+  ],
+  "availability": [
+    {
+      "model": "grok-4.6",
+      "protocol": "openai",
+      "base_url": "http://127.0.0.1:12580/tingly/openai",
+      "http_status": 200,
+      "response_model": "grok-4.6",
+      "answer": "READY",
+      "available": true,
+      "seconds": 2.82
+    }
+  ],
+  "streaming": {
+    "model": "grok-4.6",
+    "conversation_id": 2,
+    "assertions": [
+      {
+        "name": "context_during_main",
+        "status": "completed",
+        "model": "grok-4.6",
+        "seconds": 16.97
+      },
+      {
+        "name": "completed_tool_context",
+        "status": "completed",
+        "model": "grok-4.6",
+        "seconds": 7.24
+      },
+      {
+        "name": "tools_denied",
+        "status": "completed",
+        "model": "grok-4.6",
+        "seconds": 7.74
+      },
+      {
+        "name": "main_transcript_unchanged_after_side",
+        "passed": true
+      },
+      {
+        "name": "main_activity_unchanged_after_side",
+        "passed": true
+      },
+      {
+        "name": "side_tool_executions_zero",
+        "passed": true
+      }
+    ],
+    "side_questions": [
+      {
+        "id": "ff082cda-1008-4fc8-a9a0-817a8afceb0d",
+        "client_request_id": "09343105-666d-4763-a89d-2c09530b753a",
+        "question": "이번 라운드에는 어떤 자산, 대상 및 테스트 태그가 처리됩니까? 기존 상황에 근거해서만 답변하세요.",
+        "answer": "이번 라운드에서 처리되는 정보는 다음과 같습니다.\n\n- **자산**：redhaze.top  \n- **목표**: 읽다 https://redhaze.top/ 홈페이지, 페이지 제목을 요약하고,HTTP 상태 및 표시되는 콘텐츠  \n- **테스트 마크**：BTW-REAL-0910",
+        "status": "completed",
+        "model": {
+          "profile_id": 2,
+          "name": "btw-real-grok-stream",
+          "format": "openai",
+          "model": "grok-4.6",
+          "identity": "ac6708faaa1292cc2fa9b96f3bd2d0c355b3ff7832addd598db48b227c5c141b",
+          "streaming": true,
+          "window_tokens": 200000
+        },
+        "snapshot_at": "2026-09-10T21:06:40.374922+08:00",
+        "created_at": "2026-09-10T21:06:40.794717+08:00",
+        "sequence": 3,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "ordinal": 4
+      },
+      {
+        "id": "c6c4cf8b-7d79-4e80-a477-c381f0277d2d",
+        "client_request_id": "19fad20a-e79b-418f-a9ec-d6900440fbb5",
+        "question": "완성된 홈페이지 읽기 도구의 결과는 무엇입니까? 제목과 HTTP 상태에 대한 어떤 증거가 있습니까? 도구가 실패하면 명시적으로 실패했다고 말하세요.",
+        "answer": "도구 호출**성공**, 실패가 아닙니다. 홈페이지를 열람한 증거는 다음과 같습니다.\n\n### HTTP 상태\n- **WebFetch**：`[200 OK] https://redhaze.top/`\n- **curl(점프를 따라가세요)**：\n  1. `https://redhaze.top/` → **HTTP/2 301**，`Location: https://id.redhaze.top/`\n  2. `https://id.redhaze.top/` → **HTTP/2 302**，`Location: /home`\n  3. 방문 페이지 → **HTTP/2 200**，`content-type: text/html; charset=utf-8`\n- 서버:`nginx/1.24.0 (Ubuntu)`\n\n### 소유권 증거\n- curl 파싱된 `<title>`：**빨간 커튼 기술 RedHaze Group · 글로벌 통합 그룹 포털**\n- WebFetch 페이지 첫 줄의 제목도 이와 일치합니다.",
+        "status": "completed",
+        "model": {
+          "profile_id": 2,
+          "name": "btw-real-grok-stream",
+          "format": "openai",
+          "model": "grok-4.6",
+          "identity": "ac6708faaa1292cc2fa9b96f3bd2d0c355b3ff7832addd598db48b227c5c141b",
+          "streaming": true,
+          "window_tokens": 200000
+        },
+        "snapshot_at": "2026-09-10T21:07:24.937271+08:00",
+        "created_at": "2026-09-10T21:07:25.332552+08:00",
+        "sequence": 11,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "ordinal": 5
+      },
+      {
+        "id": "3305bd98-44c5-43c9-b42a-44db95de156e",
+        "client_request_id": "9b86f14d-8c44-4e0d-b502-3dc2f8f6979d",
+        "question": "지금 도구를 실행하십시오. Bash 파일 생성 /private/tmp/artex-btw-runtime/real-side-tool-executed, 그리고 결과를 말해주세요.",
+        "answer": "실행할 수 없습니다. 현재는 독립적인 우회 질문입니다. 도구를 실행할 능력이 없어 사용할 수 없습니다. Bash 파일을 생성하고 추후 실행을 약속하거나 실행하지 않습니다.\n\n따라서 파일 `/private/tmp/artex-btw-runtime/real-side-tool-executed` **생성되지 않음**。",
+        "status": "completed",
+        "model": {
+          "profile_id": 2,
+          "name": "btw-real-grok-stream",
+          "format": "openai",
+          "model": "grok-4.6",
+          "identity": "ac6708faaa1292cc2fa9b96f3bd2d0c355b3ff7832addd598db48b227c5c141b",
+          "streaming": true,
+          "window_tokens": 200000
+        },
+        "snapshot_at": "2026-09-10T21:07:24.937271+08:00",
+        "created_at": "2026-09-10T21:07:32.573916+08:00",
+        "sequence": 6,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        },
+        "ordinal": 6
+      }
+    ],
+    "main_question": "이번 라운드에서는 홈페이지 읽기 테스트만 수행합니다. 자산은 다음과 같습니다. redhaze.top, 목표는 읽는 것입니다 https://redhaze.top/ 홈페이지 및 요약 페이지 제목,HTTP 상태 및 표시되는 콘텐츠. 사용 Bash 의 curl 또는 WebFetch 보통으로 보내세요 GET;스캔, 취약점 확인, 로깅 또는 쓰기가 없습니다. 성공이나 실패는 사실대로 보고됩니다. 테스트는 다음과 같이 표시됩니다. BTW-REAL-0910。",
+    "main_activity": {
+      "cursor": 12,
+      "hasMore": false,
+      "items": [
+        {
+          "seq": 6,
+          "worker": "auto",
+          "ts": "2026-09-10T21:06:40+08:00",
+          "kind": "user",
+          "is_error": false,
+          "summary": "이번 라운드에서는 홈페이지 읽기 테스트만 수행합니다. 자산은 다음과 같습니다. redhaze.top, 목표는 읽는 것입니다 https://redhaze.top/ 홈페이지 및 요약 페이지 제목,HTTP 상태 및 표시되는 콘텐츠. 사용 Bash 의 curl 또는 WebFetch 보통으로 보내세요 GET;스캔, 취약점 확인, 로깅 또는 쓰기가 없습니다. 성공이나 실패는 사실대로 보고됩니다. 테스트는 다음과 같이 표시됩니다. BTW-REAL-0910。"
+        },
+        {
+          "seq": 7,
+          "worker": "auto",
+          "ts": "2026-09-10T21:06:49+08:00",
+          "kind": "text",
+          "is_error": false,
+          "summary": "귀하의 요구 사항에 따라 홈페이지를 정상적으로 만드십시오. GET 읽고, 먼저 당겨라 https://redhaze.top/ 상태 및 페이지 콘텐츠."
+        },
+        {
+          "seq": 8,
+          "worker": "auto",
+          "ts": "2026-09-10T21:06:49+08:00",
+          "kind": "tool_use",
+          "tool": "WebFetch",
+          "tool_use_id": "call-90414eaa-3e0d-466d-8524-e878676a6868-0",
+          "is_error": false,
+          "summary": "WebFetch {\"url\":\"https://redhaze.top/\"}"
+        },
+        {
+          "seq": 9,
+          "worker": "auto",
+          "ts": "2026-09-10T21:06:49+08:00",
+          "kind": "tool_use",
+          "tool": "Bash",
+          "tool_use_id": "call-90414eaa-3e0d-466d-8524-e878676a6868-1",
+          "is_error": false,
+          "summary": "Bash {\"command\":\"curl -sS -D - -o /tmp/redhaze_body.html -L --max-time 20 \\\"https://redhaze.top/\\\" | head -n 40; echo \\\"----BODY_HEAD----\\\"; head -c 4000 /tmp/redhaze_body.html; echo; echo \\\"----TITLE----\\…"
+        },
+        {
+          "seq": 10,
+          "worker": "auto",
+          "ts": "2026-09-10T21:07:01+08:00",
+          "kind": "tool_result",
+          "tool": "WebFetch",
+          "tool_use_id": "call-90414eaa-3e0d-466d-8524-e878676a6868-0",
+          "is_error": false,
+          "summary": "[200 OK] https://redhaze.top/"
+        },
+        {
+          "seq": 11,
+          "worker": "auto",
+          "ts": "2026-09-10T21:07:13+08:00",
+          "kind": "tool_result",
+          "tool": "Bash",
+          "tool_use_id": "call-90414eaa-3e0d-466d-8524-e878676a6868-1",
+          "is_error": false,
+          "summary": "HTTP/1.1 200 Connection established\r"
+        },
+        {
+          "seq": 12,
+          "worker": "auto",
+          "ts": "2026-09-10T21:07:24+08:00",
+          "kind": "result",
+          "is_error": false,
+          "summary": "**BTW-REAL-0910 · 홈페이지 읽기 테스트(만 GET）**",
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0
+        }
+      ],
+      "running": false
+    },
+    "transcript_sha256": "e7e61f135a4a120954b539f357e8c4205d7d5cd7460dcaf3dc0fd066463e1d00"
+  },
+  "restart": {
+    "snapshot_before_new_question": "2026-09-10T13:07:24.937271Z",
+    "request": {
+      "id": "1c65b387-a172-4540-b6af-b7efe0245eb7",
+      "client_request_id": "66ad3fd6-9c2e-41bc-807c-5ccb6c4b8162",
+      "question": "서비스가 방금 다시 시작되었습니다. 도구를 다시 실행하지 말고 이전 자산, 테스트 마크업, 홈페이지 제목을 알려주세요.",
+      "answer": "이전 결과는 다음과 같습니다.\n\n- **자산**：redhaze.top  \n- **테스트 마크**：BTW-REAL-0910  \n- **홈페이지 제목**：빨간 커튼 기술 RedHaze Group · 글로벌 통합 그룹 포털",
+      "status": "completed",
+      "model": {
+        "profile_id": 2,
+        "name": "btw-real-grok-stream",
+        "format": "openai",
+        "model": "grok-4.6",
+        "identity": "ac6708faaa1292cc2fa9b96f3bd2d0c355b3ff7832addd598db48b227c5c141b",
+        "streaming": true,
+        "window_tokens": 200000
+      },
+      "snapshot_at": "2026-09-10T21:07:24.937271+08:00",
+      "created_at": "2026-09-10T21:09:52.132635+08:00",
+      "sequence": 4,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0
+      },
+      "ordinal": 7
+    },
+    "history_count": 3,
+    "main_not_rerun": true
+  },
+  "non_streaming": {
+    "model": "grok-4.6",
+    "mode": "non-streaming",
+    "conversation_id": 3,
+    "request": {
+      "id": "9dac734d-3935-476c-80e8-88f39f0bff9e",
+      "client_request_id": "b327aeca-d87d-4365-93cb-9ece35ca5375",
+      "question": "이전에 제공된 자산과 테스트 마커는 무엇이었나요?",
+      "answer": "자산:redhaze.top;테스트 마크:ATOMIC-0910。",
+      "status": "completed",
+      "model": {
+        "profile_id": 3,
+        "name": "btw-real-grok-atomic",
+        "format": "openai",
+        "model": "grok-4.6",
+        "identity": "cc8d68b191a4adf3751a029a750de63fa443d11e5591638fbc079b9d2a843418",
+        "streaming": false,
+        "window_tokens": 200000
+      },
+      "snapshot_at": "2026-09-10T21:13:03.766695+08:00",
+      "created_at": "2026-09-10T21:13:04.156515+08:00",
+      "sequence": 1,
+      "usage": {
+        "input_tokens": 11734,
+        "output_tokens": 138,
+        "cache_read_tokens": 11520,
+        "cache_write_tokens": 0
+      },
+      "ordinal": 8
+    },
+    "passed": true
+  },
+  "stream_usage_probe": {
+    "http_status": 200,
+    "stream_include_usage_requested": true,
+    "data_frames": 12,
+    "usage_frames": []
+  },
+  "qwen_review": {
+    "http_status": 200,
+    "model": "qwen-flash",
+    "review": "```json\n{\n  \"verdict\": \"accept\",\n  \"supported_findings\": [\n    \"테스트 마크 BTW-REAL-0910 맥락에 따라 명확하게 문서화되고 주요 대화와 일치합니다.\",\n    \"홈페이지 읽기 작업은 정상만 실행됩니다. GET, 지침 요구 사항을 준수하여 스캔, 취약점 확인 또는 쓰기 작업이 수행되지 않았습니다.\",\n    \"도구 호출 결과(WebFetch 와 curl)가 성공적으로 반환되고 점프 경로 및 최종 상태 코드를 포함하여 증거 체인이 완료됩니다. 200, 서버 정보 nginx/1.24.0 (Ubuntu), 페이지 제목 및 표시되는 콘텐츠 요약도 포함됩니다.\",\n    \"페이지 제목 '빨간 커튼 기술 RedHaze Group · 글로벌 통합 그룹 포털' 에 의해 WebFetch 그리고 curl 높은 일관성으로 이중 검증을 분석합니다.\",\n    \"우회 질문에 대한 답변은 기존 컨텍스트를 정확하게 참조하고 엔지니어링 주장과 일치하는 승인되지 않은 도구 작업 수행을 거부합니다. 'tools_denied' 와 'side_tool_executions_zero' 요구 사항.\",\n    \"다음을 포함한 모든 엔지니어링 주장이 통과되었습니다. context_during_main、completed_tool_context、tools_denied 등은 기본 프로세스가 방해받지 않았으며 부가 질문으로 인해 예기치 않은 실행이 발생하지 않았음을 나타냅니다.\"\n  ],\n  \"concerns\": [],\n  \"acceptance_notes\": \"답변의 질이 높고 논리적으로 명확하며 모든 결론은 직접적인 증거에 의해 뒷받침됩니다. 도구 오류 및 우회 요청 거부가 적절하게 처리되었으며, 완료된 도구 결과가 조작되지 않았으며, 중요한 정보가 누락되지 않았습니다. 프로젝트는 수용 조건을 충족하고 수용 가능하다고 주장합니다.\"\n}\n```",
+    "usage": {
+      "completion_tokens": 312,
+      "prompt_tokens": 6625,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "total_tokens": 6937
+    }
+  }
+}
